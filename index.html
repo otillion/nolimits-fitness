@@ -1,0 +1,910 @@
+<title>No Limits Fitness</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;1,700;1,800&family=Barlow:wght@400;500;600&family=Cairo:wght@400;600;800;900&display=swap">
+<style>
+/* Layout concept: dark steel gym floor. Giant outlined brand word behind a floating logo medallion,
+   green sticker marquee, diamond-plate texture on the pillars band, chamfered buttons like cut metal plate. */
+:root{
+  --bg:#0a0c0a;          /* green-biased black */
+  --panel:#111511;       /* card steel */
+  --panel-2:#171d17;
+  --fg:#eef2ea;          /* cool off-white */
+  --mut:#9ba696;         /* muted sage-grey */
+  --green:#62d11f;       /* logo green */
+  --green-2:#86ec3d;
+  --line:rgba(238,242,234,.09);
+  --line-2:rgba(238,242,234,.2);
+  --display:'Barlow Condensed','Cairo',system-ui,sans-serif;
+  --body:'Barlow','Cairo',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--green-2);outline-offset:3px}
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:lang(ar) body,:lang(ar){font-family:'Cairo',var(--body)}
+
+/* type */
+.disp{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;line-height:.92;letter-spacing:.005em;text-wrap:balance}
+:lang(ar) .disp,:lang(ar) .btn,:lang(ar) .eyebrow,:lang(ar) .marquee,:lang(ar) .brand{font-family:'Cairo',sans-serif;font-style:normal;text-transform:none;letter-spacing:0;font-weight:900;line-height:1.15}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font:600 13px var(--display);letter-spacing:.22em;text-transform:uppercase;color:var(--green)}
+.eyebrow::before{content:"";width:8px;height:8px;background:var(--green);transform:rotate(45deg)}
+:lang(ar) .eyebrow{font-size:14px}
+h1,h2,h3,p{margin:0}
+.sec{padding-block:96px}
+.sec-h{font-size:clamp(40px,6.4vw,84px);margin-top:14px}
+.lead{color:var(--mut);max-width:52ch;font-size:17px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 28px;font:800 15px var(--display);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border:0;color:#071004;background:var(--green);clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);transition:background .2s,transform .2s}
+.btn:hover{background:var(--green-2);transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--fg);clip-path:none;box-shadow:inset 0 0 0 1px var(--line-2)}
+.btn.ghost:hover{box-shadow:inset 0 0 0 1px var(--green);color:var(--green-2)}
+.arr{width:18px;height:18px;flex:none;transition:transform .2s}
+:lang(ar) .arr{transform:scaleX(-1)}
+.btn:hover .arr,.card:hover .arr{transform:translateX(4px)}
+:lang(ar) .btn:hover .arr,:lang(ar) .card:hover .arr{transform:scaleX(-1) translateX(4px)}
+
+/* header */
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(10,12,10,.74);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hdr .wrap{display:flex;align-items:center;gap:18px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 21px var(--display);font-style:italic;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.brand img{width:40px;height:40px;border-radius:50%}
+.nav{display:flex;gap:28px;margin-inline:auto}
+.nav a{font:600 14px var(--display);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--mut);transition:color .2s}
+:lang(ar) .nav a{font-family:'Cairo';letter-spacing:0;font-size:15px;text-transform:none}
+.nav a:hover{color:var(--fg)}
+.lang{display:flex;border:1px solid var(--line-2);margin-inline-start:auto}
+.nav + .lang{margin-inline-start:0}
+.lang button{background:none;border:0;padding:7px 12px;font:700 13px var(--display);letter-spacing:.1em;color:var(--mut)}
+.lang button[aria-pressed="true"]{background:var(--green);color:#071004}
+.hdr .btn{padding:11px 20px;font-size:13px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;isolation:isolate;padding-block:60px 56px}
+.hero::before{content:"";position:absolute;inset:0;z-index:-2;background:radial-gradient(60% 70% at 78% 40%,rgba(98,209,31,.22),transparent 70%),radial-gradient(40% 50% at 0% 100%,rgba(98,209,31,.08),transparent 70%)}
+.plate{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cg fill='%23ffffff' fill-opacity='.055'%3E%3Cellipse cx='7' cy='7' rx='5' ry='1.5' transform='rotate(45 7 7)'/%3E%3Cellipse cx='21' cy='21' rx='5' ry='1.5' transform='rotate(45 21 21)'/%3E%3Cellipse cx='21' cy='7' rx='5' ry='1.5' transform='rotate(-45 21 7)'/%3E%3Cellipse cx='7' cy='21' rx='5' ry='1.5' transform='rotate(-45 7 21)'/%3E%3C/g%3E%3C/svg%3E")}
+.hero .plate{position:absolute;inset:0;z-index:-1;-webkit-mask-image:linear-gradient(120deg,transparent 30%,#000 100%);mask-image:linear-gradient(120deg,transparent 30%,#000 100%)}
+.bgword{position:absolute;top:34px;left:0;z-index:-1;white-space:nowrap;direction:ltr;font:italic 800 clamp(150px,27vw,380px)/0.8 var(--display);text-transform:uppercase;color:transparent;-webkit-text-stroke:1.5px rgba(98,209,31,.2);animation:drift 40s linear infinite alternate;user-select:none}
+@keyframes drift{from{transform:translateX(0)}to{transform:translateX(-14%)}}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:36px;align-items:center}
+.hero h1{font-size:clamp(50px,9vw,118px);margin-block:20px 24px}
+.hero h1 span{display:block}
+.hero h1 .l2{color:var(--green);position:relative;width:fit-content}
+.hero h1 .l2::after{content:"";position:absolute;inset-inline:0;bottom:-.06em;height:.07em;background:var(--green);transform-origin:left;animation:sweep 1.1s .9s cubic-bezier(.2,.7,.2,1) both}
+:lang(ar) .hero h1 .l2::after{transform-origin:right}
+@keyframes sweep{from{transform:scaleX(0)}}
+.hero .lead{font-size:18px;margin-bottom:32px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+.stats{display:flex;flex-wrap:wrap;gap:12px 36px;margin-top:44px;padding-top:22px;border-top:1px solid var(--line)}
+.stat b{display:block;font:italic 800 clamp(30px,4vw,44px)/1 var(--display);font-variant-numeric:tabular-nums}
+:lang(ar) .stat b{font-family:'Cairo';font-style:normal;font-weight:900}
+.stat small{color:var(--mut);font-size:13px}
+.rise{animation:rise .9s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0)*90ms)}
+@keyframes rise{from{opacity:0;transform:translateY(34px)}}
+
+/* medallion */
+.stage{position:relative;width:min(100%,440px);aspect-ratio:1;margin-inline:auto}
+.stage .glow{position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,rgba(98,209,31,.45),transparent 68%);filter:blur(34px);animation:pulse 5s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.55;transform:scale(.92)}}
+.ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.r1{animation:spin 48s linear infinite}
+.r2{animation:spin 70s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ring text{font:700 14px var(--display);letter-spacing:.3em;fill:rgba(238,242,234,.55)}
+.logo-w{position:absolute;inset:15%;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-12px)}}
+.logo-w img{width:100%;height:100%;border-radius:50%;translate:calc(var(--px,0)*16px) calc(var(--py,0)*16px);transition:translate .25s ease-out;filter:drop-shadow(0 24px 40px rgba(0,0,0,.6))}
+.gcard{position:absolute;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:rgba(20,26,20,.66);border:1px solid rgba(255,255,255,.14);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 18px 40px rgba(0,0,0,.4);translate:calc(var(--px,0)*-20px) calc(var(--py,0)*-20px);transition:translate .3s ease-out}
+.gcard b{display:block;font:italic 800 24px/1 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap}
+:lang(ar) .gcard b{font-family:'Cairo';font-style:normal;font-weight:900;font-size:20px}
+.gcard small{display:block;color:var(--mut);font-size:12.5px;line-height:1.3;margin-top:3px}
+.gcard svg{width:26px;height:26px;flex:none;color:var(--green)}
+.ga{top:5%;inset-inline-start:-1%;animation:float 7s ease-in-out infinite}
+.gb{bottom:4%;inset-inline-end:-1%;animation:float 8s -2s ease-in-out infinite}
+.gc{bottom:20%;inset-inline-start:0;animation:float 6.5s -4s ease-in-out infinite}
+
+/* marquee */
+.band{overflow:hidden;padding-block:26px}
+.marquee{direction:ltr;background:var(--green);color:#071004;transform:rotate(-1.4deg);margin-inline:-3%;overflow:hidden;white-space:nowrap;border-block:3px solid #071004}
+.track{display:inline-flex;animation:mq 34s linear infinite}
+.marquee span{display:inline-flex;align-items:center;gap:26px;padding-inline:13px;font:italic 800 clamp(24px,3.4vw,38px)/1 var(--display);text-transform:uppercase;padding-block:12px}
+.marquee span::after{content:"";width:12px;height:12px;background:#071004;transform:rotate(45deg)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* classes */
+.head-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:48px}
+.cls-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.card{position:relative;display:flex;flex-direction:column;gap:14px;min-height:268px;padding:30px;background:var(--panel);text-decoration:none;overflow:hidden;transition:background .3s}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(98,209,31,.16),transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::before{opacity:1}
+.card::after{content:"";position:absolute;inset-inline:0;bottom:0;height:3px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+:lang(ar) .card::after{transform-origin:right}
+.card:hover::after{transform:scaleX(1)}
+.card h3{font-size:clamp(34px,3.6vw,46px);position:relative}
+.card p{color:var(--mut);position:relative;max-width:34ch}
+.card .go{margin-top:auto;display:inline-flex;align-items:center;gap:8px;font:700 13px var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--green);position:relative}
+:lang(ar) .card .go{font-family:'Cairo';letter-spacing:0;font-size:15px;text-transform:none}
+.card .inf{position:absolute;top:26px;inset-inline-end:26px;width:46px;color:var(--line-2);transition:color .3s}
+.card:hover .inf{color:var(--green)}
+.card.hl{background:var(--green);color:#071004}
+.card.hl p,.card.hl .go{color:#16300a}
+.card.hl .inf{color:rgba(7,16,4,.4)}
+.card.hl::before{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.3),transparent 70%)}
+.card.hl::after{background:#071004}
+
+/* women */
+.women{position:relative;background:var(--panel);border-block:1px solid var(--line)}
+.women-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.women .sec-h{font-size:clamp(38px,5.4vw,70px)}
+.women .lead{margin-block:22px 32px}
+.dial{position:relative;width:min(100%,400px);aspect-ratio:1;margin-inline:auto}
+.dial svg{width:100%;height:100%;overflow:visible}
+.dial .tk{stroke:var(--line-2);stroke-width:1.2}
+.dial .tk.m{stroke:var(--mut);stroke-width:2}
+.dial text{font:600 11px var(--body);fill:var(--mut);text-anchor:middle;dominant-baseline:central}
+.dial .base{fill:none;stroke:var(--line);stroke-width:16}
+.dial .arc{fill:none;stroke:var(--green);stroke-width:16;stroke-dasharray:100;stroke-dashoffset:0;transition:stroke-dashoffset 1.8s cubic-bezier(.3,.7,.2,1) .25s;filter:drop-shadow(0 0 10px rgba(98,209,31,.6))}
+.js .dial:not(.in) .arc{stroke-dashoffset:100}
+.dial-c{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:6px}
+.dial-c b{font:italic 800 clamp(36px,6vw,54px)/1 var(--display);font-variant-numeric:tabular-nums;direction:ltr}
+.dial-c small{color:var(--mut);font-size:14px}
+.dial-c em{font-style:normal;color:var(--green);font:700 12px var(--display);letter-spacing:.24em;text-transform:uppercase}
+:lang(ar) .dial-c em{font-family:'Cairo';letter-spacing:0;font-size:14px}
+
+/* pillars */
+.pillars{position:relative}
+.pillars .plate{position:absolute;inset:0;z-index:0;opacity:.9;-webkit-mask-image:linear-gradient(#000,transparent 85%);mask-image:linear-gradient(#000,transparent 85%)}
+.pillars .wrap{position:relative;z-index:1}
+.p-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:48px}
+.pil{padding:28px 24px 30px;background:rgba(10,12,10,.82);border:1px solid var(--line);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:border-color .3s,transform .3s}
+.pil:hover{border-color:var(--green);transform:translateY(-6px)}
+.pil .ic{width:56px;height:56px;display:grid;place-items:center;border:1px solid var(--green);color:var(--green);margin-bottom:22px;transform:rotate(45deg);transition:background .3s,color .3s}
+.pil .ic svg{width:28px;height:28px;transform:rotate(-45deg);fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.pil:hover .ic{background:var(--green);color:#071004}
+.pil h3{font-size:30px;margin-bottom:10px}
+.pil p{color:var(--mut);font-size:15.5px}
+
+/* space / gallery */
+.space-grid{display:grid;grid-template-columns:1.35fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:16px;margin-top:48px}
+.shot{position:relative;margin:0;overflow:hidden;min-height:240px;background-color:var(--panel);border:1px solid var(--line);isolation:isolate}
+.shot.s1{grid-row:1/3;min-height:420px}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.shot:hover img{transform:scale(1.06)}
+.shot::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(to top,rgba(10,12,10,.88),rgba(10,12,10,.05) 60%)}
+.shot figcaption{position:absolute;inset-inline:0;bottom:0;z-index:1;padding:22px 24px;display:flex;flex-direction:column;gap:4px}
+.shot figcaption b{font:italic 800 clamp(26px,3vw,38px)/1 var(--display);text-transform:uppercase}
+:lang(ar) .shot figcaption b{font-family:'Cairo';font-style:normal;text-transform:none;font-weight:900}
+.shot figcaption span{color:var(--mut);font-size:14.5px;max-width:42ch}
+.shot .tag{position:absolute;top:14px;inset-inline-start:14px;z-index:1;padding:5px 11px;background:rgba(10,12,10,.7);border:1px solid var(--line-2);font:600 11.5px var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+:lang(ar) .shot .tag{font-family:'Cairo';letter-spacing:0;font-size:12.5px;text-transform:none}
+.shot .tag.soon{display:none;border-color:var(--green);color:var(--green)}
+.shot.miss .tag.soon{display:block}
+.shot.miss .tag.smp{display:none}
+.checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px;margin:44px 0 0;padding:0;list-style:none}
+.checks li{display:flex;align-items:center;gap:14px;padding-block:16px;border-bottom:1px solid var(--line);font-weight:500}
+.checks li::before{content:"";flex:none;width:10px;height:10px;background:var(--green);transform:rotate(45deg)}
+@media (max-width:1020px){.space-grid{grid-template-columns:1fr;grid-template-rows:none}.shot.s1{grid-row:auto;min-height:300px}.checks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.checks{grid-template-columns:1fr}.shot{min-height:230px}}
+
+/* offer */
+.offer-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:20px;margin-top:48px}
+.o-main{position:relative;overflow:hidden;padding:40px;background:linear-gradient(160deg,#16260f,var(--panel) 60%);border:1px solid rgba(98,209,31,.45)}
+.o-main::after{content:"";position:absolute;inset-inline-end:-80px;top:-80px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(98,209,31,.3),transparent 70%)}
+.badge{display:inline-block;padding:6px 14px;background:var(--green);color:#071004;font:800 13px var(--display);letter-spacing:.2em;text-transform:uppercase}
+:lang(ar) .badge{font-family:'Cairo';letter-spacing:0;font-size:14px}
+.old{display:block;margin-top:26px;color:var(--mut);font:600 24px var(--display);text-decoration:line-through;text-decoration-color:var(--green);text-decoration-thickness:2px;font-variant-numeric:tabular-nums}
+.price{display:flex;align-items:baseline;gap:10px;direction:ltr;justify-content:flex-start;font:italic 800 clamp(76px,13vw,150px)/.95 var(--display);font-variant-numeric:tabular-nums;position:relative;z-index:1}
+.price small{font-size:.32em;color:var(--green)}
+.o-plan{font-size:22px;margin-top:6px;position:relative;z-index:1}
+.o-main .btn{margin-top:30px;position:relative;z-index:1}
+.o-fine{color:var(--mut);font-size:13.5px;margin-top:18px;max-width:60ch}
+.o-friend{padding:40px;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
+.o-friend h3{font-size:clamp(34px,4vw,50px)}
+.o-friend p{color:var(--mut)}
+.eq{display:flex;align-items:center;gap:14px;margin-top:auto;direction:ltr}
+.eq i{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;color:var(--mut);flex:none}
+.eq i svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.eq b{font:italic 800 clamp(34px,4.4vw,52px)/1 var(--display);color:var(--green);margin-inline-start:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+.eq span{font:800 28px var(--display);color:var(--mut)}
+
+/* contact */
+.contact{background:var(--panel);border-top:1px solid var(--line)}
+.c-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.crow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 18px;padding-block:20px;border-bottom:1px solid var(--line)}
+.crow:first-of-type{border-top:1px solid var(--line);margin-top:34px}
+.crow .k{flex:0 0 130px;color:var(--mut);font:600 13px var(--display);letter-spacing:.18em;text-transform:uppercase}
+:lang(ar) .crow .k{font-family:'Cairo';letter-spacing:0;font-size:15px;text-transform:none}
+.crow .v{font:700 22px var(--display);letter-spacing:.04em;text-decoration:none;word-break:break-word;min-width:0}
+a.v:hover{color:var(--green-2)}
+.copy{margin-inline-start:auto;background:none;border:1px solid var(--line-2);padding:6px 14px;font:700 12px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--fg);transition:border-color .2s,color .2s}
+.copy:hover{border-color:var(--green);color:var(--green-2)}
+:lang(ar) .copy{font-family:'Cairo';letter-spacing:0;font-size:14px}
+.form{padding:36px;background:var(--bg);border:1px solid var(--line);display:flex;flex-direction:column;gap:20px}
+.form h3{font-size:36px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field label{font:600 12px var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+:lang(ar) .field label{font-family:'Cairo';letter-spacing:0;font-size:14px;text-transform:none}
+.field input,.field select{width:100%;padding:14px 16px;background:var(--panel);border:1px solid var(--line-2);color:var(--fg);font:500 16px var(--body);border-radius:0}
+:lang(ar) .field input,:lang(ar) .field select{font-family:'Cairo'}
+.field input:focus,.field select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(98,209,31,.2)}
+.form .btn{align-self:flex-start}
+
+/* footer */
+.ftr{padding-block:34px;border-top:1px solid var(--line)}
+.ftr .wrap{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between}
+.ftr small{color:var(--mut)}
+.fab{position:fixed;z-index:55;bottom:calc(16px + env(safe-area-inset-bottom,0px));inset-inline-end:max(16px,env(safe-area-inset-left,0px),env(safe-area-inset-right,0px));width:58px;height:58px;display:grid;place-items:center;border-radius:50%;background:var(--green);color:#071004;box-shadow:0 10px 30px rgba(98,209,31,.45);transition:transform .2s}
+.fab:hover{transform:scale(1.08)}
+.fab svg{width:28px;height:28px}
+.fab::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--green);animation:ping 2.4s ease-out infinite}
+@keyframes ping{from{transform:scale(1);opacity:.8}to{transform:scale(1.7);opacity:0}}
+
+/* reveal */
+.js .rv:not(.in){opacity:0;transform:translateY(30px)}
+.rv{transition:opacity .85s cubic-bezier(.2,.7,.2,1) var(--d,0ms),transform .85s cubic-bezier(.2,.7,.2,1) var(--d,0ms)}
+
+/* responsive */
+@media (max-width:1020px){
+  .nav{display:none}
+  .lang{margin-inline-start:auto}
+  .hero-grid,.women-grid,.c-grid,.offer-grid{grid-template-columns:1fr}
+  .hero-grid{gap:56px}
+  .cls-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .p-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .sec{padding-block:72px}
+}
+@media (max-width:620px){
+  .hdr .btn{display:none}
+  .brand span{font-size:18px}
+  .cls-grid,.p-grid{grid-template-columns:1fr}
+  .card{min-height:0;padding:26px}
+  .o-main,.o-friend,.form{padding:26px}
+  .crow .k{flex-basis:100%}
+  .hero{padding-top:40px}
+  .stats{gap:12px 24px}
+  .hero-cta .btn{flex:1 1 auto}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .rv:not(.in){opacity:1;transform:none}
+  .js .dial:not(.in) .arc{stroke-dashoffset:0}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<header class="hdr">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="logo.png" alt="" width="40" height="40"><span>No Limits</span></a>
+    <nav class="nav" data-aria="nav_aria">
+      <a href="#classes" data-i18n="nav_classes"></a>
+      <a href="#women" data-i18n="nav_women"></a>
+      <a href="#space" data-i18n="nav_space"></a>
+      <a href="#why" data-i18n="nav_why"></a>
+      <a href="#offer" data-i18n="nav_offer"></a>
+      <a href="#contact" data-i18n="nav_contact"></a>
+    </nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-l="tr" aria-pressed="true">TR</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+      <button type="button" data-l="ar" aria-pressed="false" lang="ar">عربي</button>
+    </div>
+    <a class="btn" data-wa="topic_all" href="#contact" target="_blank" rel="noopener"><span data-i18n="cta_wa"></span></a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" id="hero">
+  <div class="plate"></div>
+  <div class="bgword" aria-hidden="true">No Limits</div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow rise" style="--i:0" data-i18n="h_eyebrow"></span>
+      <h1 class="disp rise" style="--i:1"><span class="l1" data-i18n="h1a"></span><span class="l2" data-i18n="h1b"></span></h1>
+      <p class="lead rise" style="--i:3" data-i18n="h_sub"></p>
+      <div class="hero-cta rise" style="--i:4">
+        <a class="btn" data-wa="topic_all" href="#contact" target="_blank" rel="noopener"><span data-i18n="h_cta1"></span>
+          <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn ghost" href="#classes" data-i18n="h_cta2"></a>
+      </div>
+      <div class="stats rise" style="--i:5">
+        <div class="stat"><b data-count="2021" data-plain>2021</b><small data-i18n="st1"></small></div>
+        <div class="stat"><b data-count="6">6</b><small data-i18n="st2"></small></div>
+        <div class="stat"><b>09–15</b><small data-i18n="st3"></small></div>
+      </div>
+    </div>
+
+    <div class="stage rise" style="--i:2" id="stage">
+      <div class="glow"></div>
+      <svg class="ring r1" viewBox="0 0 400 400" dir="ltr" aria-hidden="true"><circle cx="200" cy="200" r="194" fill="none" stroke="rgba(98,209,31,.5)" stroke-width="1.5" stroke-dasharray="3 11" stroke-linecap="round"/></svg>
+      <svg class="ring r2" viewBox="0 0 400 400" dir="ltr" aria-hidden="true">
+        <defs><path id="circ" d="M200,200 m-170,0 a170,170 0 1,1 340,0 a170,170 0 1,1 -340,0"/></defs>
+        <text><textPath href="#circ" textLength="1060" lengthAdjust="spacing">NO LIMITS • FITNESS • ESTD 2021 • NO LIMITS • FITNESS • ESTD 2021 • NO LIMITS • FITNESS • ESTD 2021 •</textPath></text>
+      </svg>
+      <div class="logo-w"><img src="logo.png" alt="No Limits Fitness" width="640" height="640"></div>
+      <div class="gcard ga">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <div><b>09:00–15:00</b><small data-i18n="gc_women"></small></div>
+      </div>
+      <div class="gcard gb">
+        <div><b><span data-count="1700">1.700</span> TL</b><small data-i18n="gc_offer"></small></div>
+      </div>
+      <div class="gcard gc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12c-2-2.6-3.8-4-5.5-4a4 4 0 0 0 0 8c1.7 0 3.5-1.4 5.5-4zm0 0c2 2.6 3.8 4 5.5 4a4 4 0 0 0 0-8c-1.7 0-3.5 1.4-5.5 4z"/></svg>
+        <div><b>ESTD 2021</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true">
+  <div class="marquee"><div class="track" id="track">
+    <span data-i18n="c1n"></span><span data-i18n="c2n"></span><span data-i18n="c3n"></span><span data-i18n="c4n"></span><span data-i18n="c5n"></span><span data-i18n="c6n"></span>
+  </div></div>
+</div>
+
+<section class="sec" id="classes">
+  <div class="wrap">
+    <div class="head-row rv">
+      <div>
+        <span class="eyebrow" data-i18n="cl_eyebrow"></span>
+        <h2 class="disp sec-h" data-i18n="cl_h"></h2>
+      </div>
+      <p class="lead" data-i18n="cl_sub"></p>
+    </div>
+    <div class="cls-grid rv" style="--d:100ms">
+      <a class="card" data-topic="c1n" data-wa="c1n" href="#contact" target="_blank" rel="noopener"><svg class="inf" viewBox="0 0 60 30" fill="none" stroke="currentColor" stroke-width="3"><path d="M30 15C24 5 8 4 8 15s16 10 22 0c6-10 22-11 22 0s-16 10-22 0z"/></svg><h3 class="disp" data-i18n="c1n"></h3><p data-i18n="c1d"></p><span class="go"><span data-i18n="cl_go"></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="card" data-topic="c2n" data-wa="c2n" href="#contact" target="_blank" rel="noopener"><svg class="inf" viewBox="0 0 60 30" fill="none" stroke="currentColor" stroke-width="3"><path d="M30 15C24 5 8 4 8 15s16 10 22 0c6-10 22-11 22 0s-16 10-22 0z"/></svg><h3 class="disp" data-i18n="c2n"></h3><p data-i18n="c2d"></p><span class="go"><span data-i18n="cl_go"></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="card" data-topic="c3n" data-wa="c3n" href="#contact" target="_blank" rel="noopener"><svg class="inf" viewBox="0 0 60 30" fill="none" stroke="currentColor" stroke-width="3"><path d="M30 15C24 5 8 4 8 15s16 10 22 0c6-10 22-11 22 0s-16 10-22 0z"/></svg><h3 class="disp" data-i18n="c3n"></h3><p data-i18n="c3d"></p><span class="go"><span data-i18n="cl_go"></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="card" data-topic="c4n" data-wa="c4n" href="#contact" target="_blank" rel="noopener"><svg class="inf" viewBox="0 0 60 30" fill="none" stroke="currentColor" stroke-width="3"><path d="M30 15C24 5 8 4 8 15s16 10 22 0c6-10 22-11 22 0s-16 10-22 0z"/></svg><h3 class="disp" data-i18n="c4n"></h3><p data-i18n="c4d"></p><span class="go"><span data-i18n="cl_go"></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="card" data-topic="c5n" data-wa="c5n" href="#contact" target="_blank" rel="noopener"><svg class="inf" viewBox="0 0 60 30" fill="none" stroke="currentColor" stroke-width="3"><path d="M30 15C24 5 8 4 8 15s16 10 22 0c6-10 22-11 22 0s-16 10-22 0z"/></svg><h3 class="disp" data-i18n="c5n"></h3><p data-i18n="c5d"></p><span class="go"><span data-i18n="cl_go"></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <a class="card hl" data-topic="c6n" data-wa="c6n" href="#contact" target="_blank" rel="noopener"><svg class="inf" viewBox="0 0 60 30" fill="none" stroke="currentColor" stroke-width="3"><path d="M30 15C24 5 8 4 8 15s16 10 22 0c6-10 22-11 22 0s-16 10-22 0z"/></svg><h3 class="disp" data-i18n="c6n"></h3><p data-i18n="c6d"></p><span class="go"><span data-i18n="cl_go"></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec women" id="women">
+  <div class="wrap women-grid">
+    <div class="rv">
+      <span class="eyebrow" data-i18n="w_eyebrow"></span>
+      <h2 class="disp sec-h" data-i18n="w_h"></h2>
+      <p class="lead" data-i18n="w_p"></p>
+      <a class="btn" data-wa="w_topic" href="#contact" target="_blank" rel="noopener"><span data-i18n="w_cta"></span>
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="dial rv" id="dial" style="--d:150ms">
+      <svg viewBox="0 0 300 300" dir="ltr" role="img" data-aria="w_dial_aria">
+        <g id="ticks"></g>
+        <circle class="base" cx="150" cy="150" r="110"/>
+        <path class="arc" pathLength="100" d="M227.78 227.78 A110 110 0 0 1 72.22 227.78"/>
+      </svg>
+      <div class="dial-c"><em data-i18n="w_only"></em><b>09:00–15:00</b><small data-i18n="w_dial"></small></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec pillars" id="why">
+  <div class="plate"></div>
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow" data-i18n="y_eyebrow"></span>
+      <h2 class="disp sec-h" data-i18n="y_h"></h2>
+    </div>
+    <div class="p-grid">
+      <div class="pil rv"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 7v10M3 9.5v5M18 7v10M21 9.5v5M6 12h12"/></svg></div><h3 class="disp" data-i18n="p1t"></h3><p data-i18n="p1d"></p></div>
+      <div class="pil rv" style="--d:90ms"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 16l.7 1.8L21.5 18.5l-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z"/></svg></div><h3 class="disp" data-i18n="p2t"></h3><p data-i18n="p2d"></p></div>
+      <div class="pil rv" style="--d:180ms"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-4 3-6 6.5-6s6 2 6.5 6M16 9.5l2 2 4-4"/></svg></div><h3 class="disp" data-i18n="p3t"></h3><p data-i18n="p3d"></p></div>
+      <div class="pil rv" style="--d:270ms"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.5"/><path d="M2 20c.4-3.5 2.6-5.5 6-5.5s5.6 2 6 5.5M15 15c3 0 5 1.6 7 4.5"/></svg></div><h3 class="disp" data-i18n="p4t"></h3><p data-i18n="p4d"></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="space">
+  <div class="wrap">
+    <div class="head-row rv">
+      <div>
+        <span class="eyebrow" data-i18n="g_eyebrow"></span>
+        <h2 class="disp sec-h" data-i18n="g_h"></h2>
+      </div>
+      <p class="lead" data-i18n="g_sub"></p>
+    </div>
+    <div class="space-grid rv" style="--d:100ms">
+      <figure class="shot s1 plate"><img src="img/free-weights.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('miss');this.remove()"><span class="tag smp" data-i18n="g_sample"></span><span class="tag soon" data-i18n="g_soon"></span><figcaption><b data-i18n="g1t"></b><span data-i18n="g1d"></span></figcaption></figure>
+      <figure class="shot s2 plate"><img src="img/studio.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('miss');this.remove()"><span class="tag smp" data-i18n="g_sample"></span><span class="tag soon" data-i18n="g_soon"></span><figcaption><b data-i18n="g2t"></b><span data-i18n="g2d"></span></figcaption></figure>
+      <figure class="shot s3 plate"><img src="img/functional.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('miss');this.remove()"><span class="tag smp" data-i18n="g_sample"></span><span class="tag soon" data-i18n="g_soon"></span><figcaption><b data-i18n="g3t"></b><span data-i18n="g3d"></span></figcaption></figure>
+    </div>
+    <ul class="checks rv">
+      <li data-i18n="k1"></li><li data-i18n="k2"></li><li data-i18n="k3"></li>
+      <li data-i18n="k4"></li><li data-i18n="k5"></li><li data-i18n="k6"></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="offer">
+  <div class="wrap">
+    <div class="rv">
+      <span class="eyebrow" data-i18n="o_eyebrow"></span>
+      <h2 class="disp sec-h" data-i18n="o_h"></h2>
+    </div>
+    <div class="offer-grid">
+      <div class="o-main rv">
+        <span class="badge" data-i18n="o_badge"></span>
+        <span class="old"><span data-count="2000">2.000</span> TL</span>
+        <div class="price"><span data-count="1700">1.700</span><small>TL</small></div>
+        <p class="o-plan disp" data-i18n="o_plan"></p>
+        <a class="btn" data-wa="topic_offer" href="#contact" target="_blank" rel="noopener"><span data-i18n="o_cta"></span>
+          <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <p class="o-fine" data-i18n="o_fine"></p>
+      </div>
+      <div class="o-friend rv" style="--d:120ms">
+        <span class="eyebrow" data-i18n="f_eyebrow"></span>
+        <h3 class="disp" data-i18n="f_h"></h3>
+        <p data-i18n="f_p"></p>
+        <div class="eq">
+          <i><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.6-4.5 3.6-7 8-7s7.4 2.5 8 7"/></svg></i>
+          <span>+</span>
+          <i><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.6-4.5 3.6-7 8-7s7.4 2.5 8 7"/></svg></i>
+          <b>−<span data-count="250" style="font:inherit;color:inherit">250</span> TL</b>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec contact" id="contact">
+  <div class="wrap c-grid">
+    <div class="rv">
+      <span class="eyebrow" data-i18n="ct_eyebrow"></span>
+      <h2 class="disp sec-h" data-i18n="ct_h"></h2>
+      <p class="lead" style="margin-top:18px" data-i18n="ct_p"></p>
+      <div class="crow"><span class="k" data-i18n="k_phone"></span><span class="v" dir="ltr" id="phone"></span><button type="button" class="copy" id="copyBtn" data-i18n="copy"></button></div>
+      <div class="crow"><span class="k">Instagram</span><a class="v" dir="ltr" href="https://www.instagram.com/fitness_nolimits/" target="_blank" rel="noopener">@fitness_nolimits</a></div>
+      <div class="crow"><span class="k" data-i18n="k_map"></span><a class="v" href="https://maps.app.goo.gl/iNQuoGpynbov1pCG6" target="_blank" rel="noopener" data-i18n="map_t"></a></div>
+    </div>
+    <form class="form rv" id="form" style="--d:120ms" novalidate>
+      <h3 class="disp" data-i18n="fm_h"></h3>
+      <div class="field"><label for="fname" data-i18n="fm_name"></label><input id="fname" type="text" autocomplete="given-name" data-ph="fm_name_ph"></div>
+      <div class="field"><label for="ftopic" data-i18n="fm_topic"></label><select id="ftopic"></select></div>
+      <a class="btn" id="fsend" href="#contact" target="_blank" rel="noopener"><span data-i18n="fm_send"></span>
+        <svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="logo.png" alt="" width="40" height="40"><span>No Limits Fitness</span></a>
+    <small data-i18n="ft_tag"></small>
+    <small>© 2021 No Limits Fitness</small>
+  </div>
+</footer>
+
+<a class="fab" data-wa="topic_all" href="#contact" target="_blank" rel="noopener" data-aria="cta_wa">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.9L2 22l5.25-1.38A9.9 9.9 0 1 0 12.04 2zm0 1.8a8.1 8.1 0 1 1-4.2 15.04l-.3-.18-3.1.82.83-3.03-.2-.31A8.1 8.1 0 0 1 12.04 3.8zM8.6 7.6c-.2 0-.5.07-.75.35-.26.28-1 .98-1 2.4s1.03 2.78 1.17 2.97c.14.2 2 3.2 4.95 4.35 2.45.97 2.95.78 3.48.73.53-.05 1.7-.7 1.94-1.37.24-.68.24-1.26.17-1.38-.07-.12-.27-.2-.56-.34-.3-.15-1.7-.84-1.97-.94-.27-.1-.46-.15-.65.15-.2.3-.75.94-.92 1.13-.17.2-.34.22-.63.07-.3-.15-1.24-.46-2.36-1.45-.87-.78-1.46-1.74-1.63-2.03-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.65-1.6-.9-2.18-.23-.56-.47-.48-.65-.49z"/></svg>
+</a>
+
+<script>
+document.documentElement.classList.add('js');
+const LOGO='data:image/webp;base64,'+[
+'UklGRv4/AABXRUJQVlA4WAoAAAAQAAAA/wAA/wAAQUxQSEQHAAABzlDbtg0j//+5nbpFxDLgInamDdP3gxL/T4Ykqyp78Gzbtm/2e6e1fdpnnWzjuDjtHJ9t',
+'zszad9v2G3R9Pp3Z1arKeH4RFRlZEeHAkdy24ZE58kRT6f0FatpGkprlD/O4XOUBsE9EOHLbRpJm+UNVd2JLV0wFwkKToIkjzr6+//jnJnzyy7xFa3fsLEYl',
+'kLi1+Tz/yYTnxve/PjsCTRSaJEQQoETI2OCE6wY929axeEtXVBO6BDvanh2UnaDM20vY7kYixgYn3Phw25xNxcgE9RogijMqOy8xZy1z8vCNJ5h3QGtvo0zl',
+'9D7vdayPDPR0e1+6amsEoffOswHpyPucbgrKwkqIiMfc9XrnTuPa7OnuJeI6ggidN86ndL5+1zEBYmhPIeY6Onvs+6ujEnpruq/V4T6IXMLq9yUzb0uLPtec',
+'89CPOyuuNXhJfnzI2fE5iLRy4phvtOJ9kRMC8l4L37gTEdFuiRLE5junbIhXkiVscDmWEmUrE0Y87cn58UoShfkuQ1RipdmEeMPkzfr6IU4oyi7S5kyMi2mh',
+'p5v7vval/l5OONAz+/w+2zwBCWLLkBnMXOpPAUiPliEZYsEimQyebdwlUgOPzJkULJEoxnDQnIi951TBe2Y3iFBx6jcpxDvbSx3IqQMic3seoKe0H3X5J+VZ',
+'OpNPfKoPUoTHvr03KhpZShNilx0bhCq9r7Ujlkbcw6mGZ3aS0tdghXjZN7W/0qblVfgbQVQpnNny9G79LssCQM+UZ4GkTr12aoWjUn8QXpsuUVCe2hd1F9ka',
+'IMf+KUmPGCo8/5eIe9kqQGZPgQrT0jZiS4xqFVFGpKOrgIdMqjjTIiPRBZKCuGwOe2IrgTw7wULiZwzYFnWzteAYByR7BCO+ENtmqS5M8gjBw97X7/WtBkJ+',
+'Pw8ksXHGzMiVwnLuOJeEehNeuzR+hs1GLMXAJzLu2Ro/w24jcpdAFxzaw71sSSD7oUlbDAXvN75fsaYT35+w7yIEn6hiS+vtmAWSqPxF9qWwqnt+MUGp4MtG',
+'WNclMamRs4VhpAnZNSvLLZxm2JSIuN8IS/v9CXCPQ42NLO3IQxvugq5Lh729ywXS4LhmW9TLFgfytryhrvC0ZfHT7TxcsgZ+DxHSobN12N4zIWrc280PuJut',
+'D8eCBWrU9Od1QOC+QcMF+3FPEQIjzw6lIRMu2aI3BMFRLmnAgJAPmleaAAQ856io/trk8iYYejKUuscwM4cjzersCs/bVt4ERc+2vK49oUi7ZlioXYTqqT2l',
+'Axp/CqWO2lX7TA0WyV9VNynk1pma4aG8VVH9NMcAwdVNUnjxblODR9p9cX0kCX+IehkkIOckddFGlDdB1CN1kIiOWlEsMVBEK3xItfO7muGid2smhZfEvOWA',
+'6ZD9voEzfqYZMroaTfD28ia4em6vTVJN0zXDRtObVE08ICoxcMQDaqGweT6ERs1hDTxIB3w+KJDqeV4RQqO8OayBexhA+OqJmmZDaVkTVcn3musQLkt1pOh7',
+'zTDS96Sq4utcMQIS5LJqSHCyZigpq8IUnryN4DwhlEBV8c9izXBSVpFCalnIvXAassuIKvFtOiD1rBIpnKJrSEtXYYHw+E1REVIjzjzGlk04RjOs5LAp/uR7',
+'eO17pNj1c3bqGtZSHKq4+iHN0BLGlQp/hNgo5iTEs3bpGtoyP6t8uYDjNMNLOUp5/UERYiNBVVYftU7X8JbrPIZmfVfUywAD+S6zFHxDr0C8IKaRmgr1yVRF',
+'RvfpZVMBHnq6bhbsoxlmokDMf9p0w2yOvbaQ2nUnzI3tRCXp+I16BeYF9IESvIlKAbTTTShN+LCuoS4zbBJsYwe1OZZSo5qjZ0E9yqkAT9gUwS1zhgFeS5Ab',
+'YYCDdA13OSjAZ3Un3I3PIrbpWXCPEsQO2AsJDl8Eu+V09hZ9JNwHSnZ9VwQ6ulx/zZCTvz9CyA35/uegNzcBepOPobfsV+jt13nQ2y2CftCthd7eDgYevRN6',
+'G/7HP4b/95+7/Odu/73Lf+/2P3fxP3fzP3f1P3f3v3fxv3fzv3f1v3f3z13w5278c1f+uTv/3KV/7jaAuWv/3L1+7yKAvZvy71359+74e5f+vVv/3rV/756f',
+'u+DP3fDnrvhzd/i5S/7cLX/uGj53L4DcxfLnbuJzVwPI3S1/7jI/d9ufu+7P3ef3Lvh7N/i9K/7eHX7vkr93i9+75u/d4/cu+ns3+b2r/t5dfu+yv3eb37vu',
+'793ncxf4uRv43BV87g4/dwmfu8XPXcPn7uFzF/m5m/jcVXzuLj53mZ+7jc9dx+fu43MX+rkb+dyVfO5OPncpn7uVz13L5+7lcxfzuZv53NV+7m49d7mfu13P',
+'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',
+'AX544c3QAAAAAA=='
+].join('');
+document.querySelectorAll('img[src="logo.png"]').forEach(i=>{i.src=LOGO});
+const CFG={phone:'0555 550 77 75',wa:'905555507775',price:1700,old:2000,disc:250};
+const LOC={tr:'tr-TR',en:'en-US',ar:'en-US'};
+const D={
+tr:{
+ nav_aria:'Menü',nav_classes:'Dersler',nav_women:'Kadınlara Özel',nav_why:'Neden Biz',nav_offer:'Kampanya',nav_contact:'İletişim',cta_wa:'WhatsApp',
+ h_eyebrow:'Fitness merkezi · Est. 2021',h1a:'Limit yok.',h1b:'Sadece sonuç.',
+ h_sub:'Modern ekipmanlar, uzman antrenörler ve güçlü bir topluluk. Daha sağlıklı, daha iyi bir sen için buradayız.',
+ h_cta1:'WhatsApp’tan yaz',h_cta2:'Dersleri gör',st1:'Kuruluş yılı',st2:'Grup dersi',st3:'Kadınlara özel saatler',
+ gc_women:'Sadece kadınlara özel',gc_offer:'1 aylık üyelik · 15 gün',
+ cl_eyebrow:'Grup dersleri',cl_h:'Her enerjiye bir ders',cl_sub:'Ders saatleri ve detaylı bilgi için bize yazman yeterli.',cl_go:'Bilgi al',
+ c1n:'Zumba',c1d:'Müzik, ritim ve bol enerji. Dans ederek kalori yak.',
+ c2n:'Pilates',c2d:'Core gücü, duruş ve esneklik için kontrollü hareketler.',
+ c3n:'Step & Dance Aerobik',c3d:'Tempolu koreografilerle kardiyo ve kondisyon.',
+ c4n:'Boks',c4d:'Vuruş tekniği, hız ve dayanıklılık. Stres atmanın en iyi yolu.',
+ c5n:'Mobilite',c5d:'Eklem hareket açıklığı ve esneklik için hareketlilik çalışmaları.',
+ c6n:'CrossFit',c6d:'Yüksek yoğunluklu fonksiyonel antrenman. Sınırlarını zorla.',
+ w_eyebrow:'Kadınlara özel',w_h:'09:00 – 15:00 sadece kadınlara özel',
+ w_p:'Bu saatlerde salon yalnızca kadın üyelerimize ayrılır. Rahat, ferah ve motive edici bir ortamda antrenman yap.',
+ w_cta:'Saatleri öğren',w_topic:'topic_women',w_only:'Sadece kadınlara',w_dial:'6 saat · 24 saatlik kadran',w_dial_aria:'24 saatlik kadranda 09:00 ile 15:00 arası vurgulanmış',
+ nav_space:'Salon',g_eyebrow:'Salon',g_h:'Antrenman alanları',g_sub:'Serbest ağırlıktan grup derslerine, her hedef için ayrı bir alan.',g_sample:'Örnek görsel',g_soon:'Salon fotoğrafı yakında',
+ g1t:'Ağırlık alanı',g1d:'Modern ekipmanlar, serbest ağırlıklar ve güç antrenmanı için geniş zemin.',
+ g2t:'Grup ders stüdyosu',g2d:'Zumba, Pilates, Step & Dance ve Mobilite dersleri için aynalı stüdyo.',
+ g3t:'Fonksiyonel alan',g3d:'CrossFit ve boks çalışmaları için yüksek tempolu antrenman alanı.',
+ k1:'Modern ekipmanlar',k2:'Temiz ve ferah ortam',k3:'Uzman antrenörler',k4:'Grup dersleri',k5:'Boks ve CrossFit',k6:'09:00–15:00 sadece kadınlara',
+ y_eyebrow:'Neden No Limits',y_h:'Birlikte daha güçlü',
+ p1t:'Modern ekipmanlar',p1d:'Her kas grubu için güncel makineler ve serbest ağırlıklar.',
+ p2t:'Temiz ve ferah ortam',p2d:'Hijyenik, geniş ve ferah bir alanda rahatça antrenman yap.',
+ p3t:'Uzman antrenörler',p3d:'Hedefine uygun yönlendirme ve doğru teknik.',
+ p4t:'Güçlü bir topluluk',p4d:'Birlikte katıl, birlikte antrenman yap, daha güçlü ol.',
+ o_eyebrow:'Kampanya',o_h:'15 günlük özel fırsat',o_badge:'Sadece 15 gün',o_plan:'1 aylık üyelik',
+ o_cta:'Yerini ayırt',o_fine:'Kampanya koşulları değişebilir. Güncel bilgi için bize yazın.',topic_offer:'15 günlük kampanya',
+ f_eyebrow:'Birlikte kazan',f_h:'Arkadaşını getir',f_p:'Arkadaşın da {price} ile üye olsun, sen {disc} indirim kazan.',
+ ct_eyebrow:'İletişim',ct_h:'Bizimle iletişime geç',ct_p:'Üyelik, ders programı ve kampanya için WhatsApp’tan veya Instagram DM’den yaz.',
+ k_phone:'Telefon',k_map:'Konum',map_t:'Google Haritalar’da aç',copy:'Kopyala',copied:'Kopyalandı',
+ fm_h:'WhatsApp’tan yaz',fm_name:'Adın',fm_name_ph:'Adını yaz',fm_topic:'Konu',fm_send:'WhatsApp’ta gönder',
+ topic_all:'üyelik ve dersler',msg1:'Merhaba, {topic} hakkında bilgi almak istiyorum.',msg2:'Merhaba, ben {name}. {topic} hakkında bilgi almak istiyorum.',topic_women:'kadınlara özel saatler',
+ ft_tag:'Daha sağlıklı, daha iyi bir sen.'
+},
+en:{
+ nav_aria:'Menu',nav_classes:'Classes',nav_women:'Women Only',nav_why:'Why Us',nav_offer:'Offer',nav_contact:'Contact',cta_wa:'WhatsApp',
+ h_eyebrow:'Fitness center · Est. 2021',h1a:'No limits.',h1b:'Just results.',
+ h_sub:'Modern equipment, expert trainers and a strong community. We are here for a healthier, better you.',
+ h_cta1:'Message on WhatsApp',h_cta2:'See classes',st1:'Founded',st2:'Group classes',st3:'Women-only hours',
+ gc_women:'Women only',gc_offer:'1-month membership · 15 days',
+ cl_eyebrow:'Group classes',cl_h:'A class for every energy',cl_sub:'Message us for class times and full details.',cl_go:'Get info',
+ c1n:'Zumba',c1d:'Music, rhythm and big energy. Burn calories while you dance.',
+ c2n:'Pilates',c2d:'Controlled movement for core strength, posture and flexibility.',
+ c3n:'Step & Dance Aerobics',c3d:'Upbeat choreography for cardio and endurance.',
+ c4n:'Boxing',c4d:'Striking technique, speed and stamina. The best way to release stress.',
+ c5n:'Mobility',c5d:'Mobility work for joint range of motion and flexibility.',
+ c6n:'CrossFit',c6d:'High-intensity functional training. Push your limits.',
+ w_eyebrow:'Women only',w_h:'09:00 – 15:00 for women only',
+ w_p:'During these hours the gym is reserved for our women members. Train in a comfortable, spacious and motivating space.',
+ w_cta:'Ask about hours',w_topic:'topic_women',w_only:'Women only',w_dial:'6 hours · 24-hour dial',w_dial_aria:'24-hour dial with 09:00 to 15:00 highlighted',
+ nav_space:'The Gym',g_eyebrow:'The gym',g_h:'Training zones',g_sub:'From free weights to group classes, a dedicated space for every goal.',g_sample:'Sample photo',g_soon:'Gym photo coming soon',
+ g1t:'Weights area',g1d:'Modern equipment, free weights and plenty of floor space for strength training.',
+ g2t:'Group class studio',g2d:'A mirrored studio for Zumba, Pilates, Step & Dance and Mobility classes.',
+ g3t:'Functional zone',g3d:'A high-tempo training area for CrossFit and boxing work.',
+ k1:'Modern equipment',k2:'Clean, spacious space',k3:'Expert trainers',k4:'Group classes',k5:'Boxing and CrossFit',k6:'09:00–15:00 women only',
+ y_eyebrow:'Why No Limits',y_h:'Stronger together',
+ p1t:'Modern equipment',p1d:'Up-to-date machines and free weights for every muscle group.',
+ p2t:'Clean, spacious space',p2d:'Train comfortably in a hygienic, open and airy gym.',
+ p3t:'Expert trainers',p3d:'Guidance that fits your goal and the right technique.',
+ p4t:'A strong community',p4d:'Join together, train together, get stronger.',
+ o_eyebrow:'Offer',o_h:'15-day special offer',o_badge:'Only 15 days',o_plan:'1-month membership',
+ o_cta:'Reserve your spot',o_fine:'Offer terms may change. Message us for the latest details.',topic_offer:'the 15-day offer',
+ f_eyebrow:'Win together',f_h:'Bring a friend',f_p:'Your friend joins for {price} too, and you get {disc} off.',
+ ct_eyebrow:'Contact',ct_h:'Get in touch',ct_p:'Message us on WhatsApp or Instagram DM about membership, class schedule and the offer.',
+ k_phone:'Phone',k_map:'Location',map_t:'Open in Google Maps',copy:'Copy',copied:'Copied',
+ fm_h:'Message on WhatsApp',fm_name:'Your name',fm_name_ph:'Type your name',fm_topic:'Topic',fm_send:'Send on WhatsApp',
+ topic_all:'membership and classes',msg1:'Hello, I would like information about {topic}.',msg2:'Hello, I am {name}. I would like information about {topic}.',topic_women:'the women-only hours',
+ ft_tag:'A healthier, better you.'
+},
+ar:{
+ nav_aria:'القائمة',nav_classes:'الحصص',nav_women:'للنساء فقط',nav_why:'لماذا نحن',nav_offer:'العرض',nav_contact:'تواصل',cta_wa:'واتساب',
+ h_eyebrow:'مركز لياقة · منذ 2021',h1a:'بلا حدود.',h1b:'نتائج فقط.',
+ h_sub:'معدات حديثة ومدربون خبراء ومجتمع قوي. نحن هنا لتكون أصحّ وأفضل.',
+ h_cta1:'راسلنا على واتساب',h_cta2:'شاهد الحصص',st1:'سنة التأسيس',st2:'حصص جماعية',st3:'ساعات للنساء فقط',
+ gc_women:'للنساء فقط',gc_offer:'اشتراك شهر · 15 يومًا',
+ cl_eyebrow:'الحصص الجماعية',cl_h:'حصة لكل طاقة',cl_sub:'راسلنا لمعرفة مواعيد الحصص وكل التفاصيل.',cl_go:'اطلب المعلومات',
+ c1n:'زومبا',c1d:'موسيقى وإيقاع وطاقة عالية. احرق السعرات وأنت ترقص.',
+ c2n:'بيلاتس',c2d:'حركات مضبوطة لقوة الجذع والقوام والمرونة.',
+ c3n:'ستيب ودانس إيروبيك',c3d:'تمارين كارديو بإيقاع سريع وكوريوغرافيا ممتعة.',
+ c4n:'ملاكمة',c4d:'تقنية اللكم والسرعة والتحمل. أفضل طريقة لتفريغ التوتر.',
+ c5n:'تمارين الحركة',c5d:'تمارين لزيادة مرونة المفاصل ومدى الحركة.',
+ c6n:'كروس فيت',c6d:'تدريب وظيفي عالي الشدة. تحدَّ حدودك.',
+ w_eyebrow:'للنساء فقط',w_h:'من 09:00 إلى 15:00 للنساء فقط',
+ w_p:'في هذه الساعات يكون النادي مخصصًا للمشتركات فقط. تمرّني في مكان مريح ورحب ومحفّز.',
+ w_cta:'اسأل عن المواعيد',w_topic:'topic_women',w_only:'للنساء فقط',w_dial:'6 ساعات · ساعة من 24 ساعة',w_dial_aria:'ساعة من 24 ساعة مع إبراز الفترة من 09:00 إلى 15:00',
+ nav_space:'النادي',g_eyebrow:'النادي',g_h:'مناطق التدريب',g_sub:'من الأوزان الحرة إلى الحصص الجماعية، مساحة خاصة لكل هدف.',g_sample:'صورة توضيحية',g_soon:'صورة النادي قريبًا',
+ g1t:'منطقة الأوزان',g1d:'معدات حديثة وأوزان حرة ومساحة واسعة لتمارين القوة.',
+ g2t:'استوديو الحصص الجماعية',g2d:'استوديو بمرايا لحصص الزومبا والبيلاتس والستيب ودانس وتمارين الحركة.',
+ g3t:'المنطقة الوظيفية',g3d:'مساحة تدريب سريعة الإيقاع للكروس فيت والملاكمة.',
+ k1:'معدات حديثة',k2:'بيئة نظيفة ورحبة',k3:'مدربون خبراء',k4:'حصص جماعية',k5:'ملاكمة وكروس فيت',k6:'09:00–15:00 للنساء فقط',
+ y_eyebrow:'لماذا No Limits',y_h:'معًا أقوى',
+ p1t:'معدات حديثة',p1d:'أجهزة وأوزان حرة حديثة لكل مجموعة عضلية.',
+ p2t:'بيئة نظيفة ورحبة',p2d:'تمرّن براحة في مساحة نظيفة وواسعة ومريحة.',
+ p3t:'مدربون خبراء',p3d:'توجيه يناسب هدفك وأسلوب تمرين صحيح.',
+ p4t:'مجتمع قوي',p4d:'انضموا معًا، تمرّنوا معًا، وكونوا أقوى.',
+ o_eyebrow:'عرض',o_h:'عرض خاص لمدة 15 يومًا',o_badge:'15 يومًا فقط',o_plan:'اشتراك شهر',
+ o_cta:'احجز مكانك',o_fine:'شروط العرض قابلة للتغيير. راسلنا لمعرفة التفاصيل الحالية.',topic_offer:'عرض الـ 15 يومًا',
+ f_eyebrow:'اربحوا معًا',f_h:'أحضر صديقك',f_p:'يشترك صديقك أيضًا بـ {price}، وتحصل أنت على خصم {disc}.',
+ ct_eyebrow:'تواصل',ct_h:'تواصل معنا',ct_p:'راسلنا على واتساب أو رسائل إنستغرام عن الاشتراك وجدول الحصص والعرض.',
+ k_phone:'الهاتف',k_map:'الموقع',map_t:'افتح في خرائط Google',copy:'نسخ',copied:'تم النسخ',
+ fm_h:'راسلنا على واتساب',fm_name:'اسمك',fm_name_ph:'اكتب اسمك',fm_topic:'الموضوع',fm_send:'أرسل عبر واتساب',
+ topic_all:'الاشتراك والحصص',msg1:'مرحبًا، أريد معلومات عن {topic}.',msg2:'مرحبًا، أنا {name}. أريد معلومات عن {topic}.',topic_women:'ساعات النساء فقط',
+ ft_tag:'لتكون أصحّ وأفضل.'
+}};
+const TOPICS=['topic_all','c1n','c2n','c3n','c4n','c5n','c6n','topic_women','topic_offer'];
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+let lang='tr';
+const nf=v=>v.toLocaleString(LOC[lang]);
+const sub=s=>s.replace(/\{(price|old|disc)\}/g,(m,k)=>nf(CFG[k])+' TL');
+const nameIn=$('#fname'), topicSel=$('#ftopic');
+function waLink(key){
+  const d=D[lang], name=(nameIn.value||'').trim();
+  const topic=d[key]||d.topic_all;
+  const m=(name?d.msg2.replace('{name}',name):d.msg1).replace('{topic}',topic);
+  return 'https://wa.me/'+CFG.wa+'?text='+encodeURIComponent(m);
+}
+function refreshLinks(){
+  $$('[data-wa]').forEach(a=>a.href=waLink(a.dataset.wa));
+  $('#fsend').href=waLink(topicSel.value||'topic_all');
+}
+function setLang(l){
+  lang=l; const d=D[l], root=document.documentElement;
+  root.lang=l; root.dir=l==='ar'?'rtl':'ltr';
+  $$('[data-i18n]').forEach(e=>{e.textContent=sub(d[e.dataset.i18n]??'')});
+  $$('[data-aria]').forEach(e=>e.setAttribute('aria-label',d[e.dataset.aria]));
+  $$('[data-ph]').forEach(e=>e.placeholder=d[e.dataset.ph]);
+  $$('[data-count]').forEach(e=>{e.textContent=e.hasAttribute('data-plain')?e.dataset.count:nf(+e.dataset.count)});
+  $$('.lang button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.l===l)));
+  const cur=topicSel.value;
+  topicSel.innerHTML='';
+  TOPICS.forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=d[k]||'';topicSel.appendChild(o)});
+  topicSel.options[0].textContent=d.topic_all.charAt(0).toUpperCase()+d.topic_all.slice(1);
+  topicSel.options[7].textContent=d.topic_women.charAt(0).toUpperCase()+d.topic_women.slice(1);
+  topicSel.options[8].textContent=d.topic_offer.charAt(0).toUpperCase()+d.topic_offer.slice(1);
+  if(cur) topicSel.value=cur;
+  $('#phone').textContent=CFG.phone;
+  $('#copyBtn').textContent=d.copy;
+  // marquee: duplicate once for a seamless loop
+  const tr=$('#track'); $$('.dup',tr).forEach(n=>n.remove());
+  [...tr.children].forEach(c=>{const k=c.cloneNode(true);k.classList.add('dup');tr.appendChild(k)});
+  refreshLinks();
+  try{localStorage.setItem('nl-lang',l)}catch(e){}
+}
+$$('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.l)));
+nameIn.addEventListener('input',refreshLinks);
+topicSel.addEventListener('change',refreshLinks);
+$('#form').addEventListener('submit',e=>e.preventDefault());
+
+// copy phone
+$('#copyBtn').addEventListener('click',async()=>{
+  const b=$('#copyBtn');
+  try{await navigator.clipboard.writeText(CFG.phone)}catch(e){
+    const r=document.createRange();r.selectNodeContents($('#phone'));const s=getSelection();s.removeAllRanges();s.addRange(r);
+  }
+  b.textContent=D[lang].copied; setTimeout(()=>b.textContent=D[lang].copy,1600);
+});
+
+// dial ticks (24 hours, 00 at top, clockwise)
+(function(){
+  const g=$('#ticks'),ns='http://www.w3.org/2000/svg';
+  for(let h=0;h<24;h++){
+    const a=h/24*2*Math.PI,major=h%6===0;
+    const r1=major?132:136,r2=144;
+    const ln=document.createElementNS(ns,'line');
+    ln.setAttribute('x1',150+r1*Math.sin(a));ln.setAttribute('y1',150-r1*Math.cos(a));
+    ln.setAttribute('x2',150+r2*Math.sin(a));ln.setAttribute('y2',150-r2*Math.cos(a));
+    ln.setAttribute('class','tk'+(major?' m':''));g.appendChild(ln);
+    if(major){
+      const t=document.createElementNS(ns,'text');
+      t.setAttribute('x',150+158*Math.sin(a));t.setAttribute('y',150-158*Math.cos(a));
+      t.textContent=String(h).padStart(2,'0');g.appendChild(t);
+    }
+  }
+})();
+
+// reveal on scroll + counters
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function countUp(el){
+  if(reduce)return;
+  const to=+el.dataset.count,plain=el.hasAttribute('data-plain'),t0=performance.now(),dur=1300;
+  (function step(t){
+    const p=Math.min(1,(t-t0)/dur),v=Math.round(to*(1-Math.pow(1-p,3)));
+    el.textContent=plain?String(v):nf(v);
+    if(p<1)requestAnimationFrame(step);
+  })(t0);
+}
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;
+    e.target.classList.add('in');
+    $$('[data-count]',e.target).forEach(countUp);
+    io.unobserve(e.target);
+  }),{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  $$('.rv').forEach(el=>io.observe(el));
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target)}
+  }),{threshold:.6});
+  $$('.hero [data-count]').forEach(el=>cio.observe(el));
+  setTimeout(()=>$$('.rv').forEach(el=>el.classList.add('in')),4500);
+}else{$$('.rv').forEach(el=>el.classList.add('in'))}
+
+// hero parallax + card spotlight
+const stage=$('#stage'),hero=$('#hero');
+let raf=0;
+hero.addEventListener('pointermove',e=>{
+  if(reduce||e.pointerType==='touch')return;
+  cancelAnimationFrame(raf);
+  raf=requestAnimationFrame(()=>{
+    const r=hero.getBoundingClientRect();
+    stage.style.setProperty('--px',((e.clientX-r.left)/r.width*2-1).toFixed(3));
+    stage.style.setProperty('--py',((e.clientY-r.top)/r.height*2-1).toFixed(3));
+  });
+});
+hero.addEventListener('pointerleave',()=>{stage.style.setProperty('--px',0);stage.style.setProperty('--py',0)});
+$$('.card').forEach(c=>c.addEventListener('pointermove',e=>{
+  const r=c.getBoundingClientRect();
+  c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');
+}));
+
+// start language: saved choice, else browser language
+let start='tr';
+try{start=localStorage.getItem('nl-lang')||''}catch(e){}
+if(!D[start]){const nav=(navigator.language||'tr').slice(0,2).toLowerCase();start=D[nav]?nav:'tr'}
+setLang(start);
+</script>
