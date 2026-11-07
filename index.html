@@ -1016,11 +1016,15 @@ function renderPromo(){
   if(o.end){const d=new Date(o.end+'T00:00:00');pe.textContent=D[lang].promo_end+': '+(isNaN(d)?o.end:d.toLocaleDateString(LOC[lang],{day:'numeric',month:'long'}))}
 }
 setLang(start);
-fetch('config.json?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(c=>{
+const SB={u:'https://lxnfkdlnfxcvfmecmczn.supabase.co',k:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4bmZrZGxuZnhjdmZtZWNtY3puIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwNDg5MjIsImV4cCI6MjEwOTYyNDkyMn0.K2kJl4KdCTvf6Sex-qLuE_GPR7jyuhGEYLtFYU337cU'};
+const gotCfg=c=>{
   if(!c)return;
   if(c.prices)for(const k in PR){const v=+c.prices[k];if(v>0)PR[k]=v}
   OFFER=c.offer||null;
   applyPrices();setLang(lang);setTimeout(()=>setLang(lang),1600);
-}).catch(()=>{});
+};
+fetch(SB.u+'/rest/v1/site_config?id=eq.1&select=data',{headers:{apikey:SB.k,Authorization:'Bearer '+SB.k},cache:'no-store'})
+ .then(r=>r.ok?r.json():Promise.reject()).then(a=>gotCfg(a[0]&&a[0].data))
+ .catch(()=>fetch('config.json?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(gotCfg).catch(()=>{}));
 </script>
 </body></html>

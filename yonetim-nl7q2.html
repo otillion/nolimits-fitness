@@ -21,8 +21,8 @@ button.s{background:transparent;color:var(--fg);border:1px solid var(--l);width:
 
 <div class="card" id="login">
 <h2>Giriş / تسجيل الدخول</h2>
-<label>GitHub Token <small>(bir kez girilir · يُدخل مرة واحدة)</small></label>
-<input id="tok" type="password" autocomplete="off" placeholder="github_pat_…">
+<label>Şifre / كلمة السر</label>
+<input id="tok" type="password" autocomplete="current-password" placeholder="••••••••">
 <div style="height:16px"></div><button id="go">Giriş / دخول</button>
 </div>
 
@@ -47,33 +47,49 @@ button.s{background:transparent;color:var(--fg);border:1px solid var(--l);width:
 </div>
 
 <button id="save">Kaydet / حفظ</button><div id="msg"></div>
-<p class="sub">Kayıttan ~1 dakika sonra sitede görünür · يظهر في الموقع بعد حوالي دقيقة.</p>
+<p class="sub">Kayıt anında sitede görünür · يظهر في الموقع فوراً.</p>
+<div class="card" style="margin-top:26px"><h2>Şifre değiştir / تغيير كلمة السر</h2>
+<label>Yeni şifre / كلمة السر الجديدة <small>(min 6)</small></label><input id="np" type="password" autocomplete="new-password">
+<div style="height:14px"></div><button class="s" id="cp">Değiştir / تغيير</button></div>
 <button class="s" id="out">Çıkış / خروج</button>
 </div></div>
 <script>
-const R='otillion/nolimits-fitness',F='config.json',API='https://api.github.com/repos/'+R+'/contents/'+F;
-const $=i=>document.getElementById(i);let sha=null,tok='';
-try{tok=localStorage.getItem('nl-admin')||''}catch(e){}
-const H=()=>({Authorization:'Bearer '+tok,Accept:'application/vnd.github+json'});
+const SB='https://lxnfkdlnfxcvfmecmczn.supabase.co',KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4bmZrZGxuZnhjdmZtZWNtY3puIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQwNDg5MjIsImV4cCI6MjEwOTYyNDkyMn0.K2kJl4KdCTvf6Sex-qLuE_GPR7jyuhGEYLtFYU337cU';
+const $=i=>document.getElementById(i);let pw='';
+try{pw=sessionStorage.getItem('nl-pw')||localStorage.getItem('nl-pw')||''}catch(e){}
+const H={apikey:KEY,Authorization:'Bearer '+KEY,'Content-Type':'application/json'};
 const say=(t,c)=>{$('msg').textContent=t;$('msg').className=c||''};
+const rpc=(f,b)=>fetch(SB+'/rest/v1/rpc/'+f,{method:'POST',headers:H,body:JSON.stringify(b)}).then(r=>r.ok?r.json():Promise.reject(r.status));
 async function load(){
-  const r=await fetch(API+'?ref=main&t='+Date.now(),{headers:H(),cache:'no-store'});
-  if(!r.ok)throw new Error(r.status===401||r.status===403||r.status===404?'Token geçersiz / الرمز غير صحيح':'Hata '+r.status);
-  const j=await r.json();sha=j.sha;
-  const c=JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,'')))));
-  const p=c.prices||{},o=c.offer||{};
+  const r=await fetch(SB+'/rest/v1/site_config?id=eq.1&select=data',{headers:H,cache:'no-store'});
+  if(!r.ok)throw new Error('Bağlantı hatası / خطأ في الاتصال');
+  const c=(await r.json())[0].data;const p=c.prices||{},o=c.offer||{};
   $('m1').value=p.m1;$('m3').value=p.m3;$('m6').value=p.m6;$('m12').value=p.m12;
   $('en').checked=!!o.enabled;
   $('tt').value=o.title_tr||'';$('te').value=o.title_en||'';$('ta').value=o.title_ar||'';
   $('dt').value=o.details_tr||'';$('de').value=o.details_en||'';$('da').value=o.details_ar||'';
   $('pr').value=o.price||'';$('op').value=o.old_price||'';$('ed').value=o.end||'';
 }
-async function enter(){
-  try{await load();$('login').classList.add('hide');$('app').classList.remove('hide')}
-  catch(e){$('login').classList.remove('hide');$('app').classList.add('hide');alert(e.message)}
-}
-$('go').onclick=()=>{tok=$('tok').value.trim();if(!tok)return;try{localStorage.setItem('nl-admin',tok)}catch(e){}enter()};
-$('out').onclick=()=>{try{localStorage.removeItem('nl-admin')}catch(e){}location.reload()};
+async function show(){await load();$('login').classList.add('hide');$('app').classList.remove('hide')}
+$('go').onclick=async()=>{
+  const p=$('tok').value;if(!p)return;
+  // verify password without changing data: change_password(old,old) is rejected if len<6, so test via save of current data
+  try{await load();
+    const cur=await fetch(SB+'/rest/v1/site_config?id=eq.1&select=data',{headers:H}).then(r=>r.json());
+    const ok=await rpc('save_config',{pw:p,cfg:cur[0].data});
+    if(!ok)return alert('Şifre yanlış / كلمة السر غير صحيحة');
+    pw=p;try{localStorage.setItem('nl-pw',pw)}catch(e){}
+    show();
+  }catch(e){alert('Hata / خطأ')}
+};
+$('out').onclick=()=>{try{localStorage.removeItem('nl-pw');sessionStorage.removeItem('nl-pw')}catch(e){}location.reload()};
+$('cp').onclick=async()=>{
+  const n=$('np').value;if(n.length<6)return say('En az 6 karakter / 6 أحرف على الأقل','er');
+  try{const ok=await rpc('change_password',{old_pw:pw,new_pw:n});
+    if(!ok)return say('Değiştirilemedi / فشل التغيير','er');
+    pw=n;try{localStorage.setItem('nl-pw',pw)}catch(e){}$('np').value='';say('✓ Şifre değişti / تم تغيير كلمة السر','ok')}
+  catch(e){say('Hata / خطأ','er')}
+};
 $('save').onclick=async()=>{
   const n=i=>Math.max(0,Math.round(+$(i).value)||0);
   const prices={m1:n('m1'),m3:n('m3'),m6:n('m6'),m12:n('m12')};
@@ -84,11 +100,9 @@ $('save').onclick=async()=>{
     price:n('pr'),old_price:n('op'),end:$('ed').value}};
   if(c.offer.enabled&&!c.offer.title_tr)return say('Türkçe başlık gerekli / العنوان بالتركية مطلوب','er');
   say('Kaydediliyor… / جارٍ الحفظ…');
-  const body={message:'Update prices/offer from admin',branch:'main',sha,
-    content:btoa(unescape(encodeURIComponent(JSON.stringify(c,null,2)+'\n')))};
-  const r=await fetch(API,{method:'PUT',headers:{...H(),'Content-Type':'application/json'},body:JSON.stringify(body)});
-  if(!r.ok)return say('Kaydedilemedi ('+r.status+') / فشل الحفظ','er');
-  sha=(await r.json()).content.sha;say('✓ Kaydedildi / تم الحفظ','ok');
+  try{const ok=await rpc('save_config',{pw,cfg:c});
+    say(ok?'✓ Kaydedildi — sitede hemen görünür / تم الحفظ — يظهر فوراً':'Oturum süresi doldu, tekrar giriş yapın / أعد تسجيل الدخول',ok?'ok':'er')}
+  catch(e){say('Kaydedilemedi / فشل الحفظ','er')}
 };
-if(tok)enter();
+if(pw)show().catch(()=>{});
 </script></body></html>
