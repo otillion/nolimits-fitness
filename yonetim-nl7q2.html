@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>No Limits Fitness — Yönetim</title>
+<style>
+:root{--bg:#0d1012;--p:#171c20;--l:#2a3238;--fg:#eef2f4;--m:#9aa6ad;--g:#62d11f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.5 system-ui,sans-serif;padding:20px}
+.w{max-width:760px;margin:auto}h1{font-size:30px;margin:0 0 4px}h2{font-size:24px;margin:0 0 14px;color:var(--g)}
+.sub{color:var(--m);margin-bottom:22px}.card{background:var(--p);border:1px solid var(--l);border-radius:14px;padding:22px;margin-bottom:22px}
+label{display:block;font-weight:700;margin:14px 0 6px}small{color:var(--m);font-weight:400}
+input,textarea{width:100%;font:inherit;font-size:20px;padding:14px;border-radius:10px;border:1px solid var(--l);background:#0d1012;color:var(--fg)}
+textarea{min-height:110px}input:focus,textarea:focus{outline:2px solid var(--g)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:560px){.row{grid-template-columns:1fr}}
+button{font:700 20px system-ui;padding:16px 26px;border:0;border-radius:12px;background:var(--g);color:#0b1405;cursor:pointer;width:100%}
+button.s{background:transparent;color:var(--fg);border:1px solid var(--l);width:auto;font-size:16px;padding:10px 16px}
+.sw{display:flex;align-items:center;gap:14px;font-weight:700;font-size:22px}.sw input{width:32px;height:32px;accent-color:var(--g)}
+#msg{margin-top:14px;font-weight:700;min-height:26px}.ok{color:var(--g)}.er{color:#ff7a6b}
+.hide{display:none}.ar{direction:rtl;text-align:right}
+</style></head><body><div class="w">
+<h1>No Limits Fitness — Yönetim / الإدارة</h1>
+<div class="sub">Fiyatları ve özel teklifi buradan değiştirin · غيّر الأسعار والعرض الخاص من هنا</div>
+
+<div class="card" id="login">
+<h2>Giriş / تسجيل الدخول</h2>
+<label>GitHub Token <small>(bir kez girilir · يُدخل مرة واحدة)</small></label>
+<input id="tok" type="password" autocomplete="off" placeholder="github_pat_…">
+<div style="height:16px"></div><button id="go">Giriş / دخول</button>
+</div>
+
+<div id="app" class="hide">
+<div class="card"><h2>Üyelik fiyatları / أسعار الاشتراك (TL)</h2>
+<div class="row"><div><label>1 ay / شهر</label><input id="m1" type="number" inputmode="numeric"></div>
+<div><label>3 ay / 3 أشهر</label><input id="m3" type="number" inputmode="numeric"></div>
+<div><label>6 ay / 6 أشهر</label><input id="m6" type="number" inputmode="numeric"></div>
+<div><label>12 ay / 12 شهر</label><input id="m12" type="number" inputmode="numeric"></div></div></div>
+
+<div class="card"><h2>Özel teklif / عرض خاص</h2>
+<label class="sw"><input type="checkbox" id="en"> Teklifi göster / إظهار العرض</label>
+<label>Başlık / العنوان <small>TR</small></label><input id="tt">
+<label>Title <small>EN</small></label><input id="te">
+<label class="ar">العنوان <small>AR</small></label><input id="ta" class="ar">
+<label>Detaylar / التفاصيل <small>TR</small></label><textarea id="dt"></textarea>
+<label>Details <small>EN</small></label><textarea id="de"></textarea>
+<label class="ar">التفاصيل <small>AR</small></label><textarea id="da" class="ar"></textarea>
+<div class="row"><div><label>Teklif fiyatı / سعر العرض <small>(TL, ops.)</small></label><input id="pr" type="number" inputmode="numeric"></div>
+<div><label>Eski fiyat / السعر القديم <small>(TL, ops.)</small></label><input id="op" type="number" inputmode="numeric"></div></div>
+<label>Bitiş tarihi / تاريخ الانتهاء <small>(boşsa süresiz · فارغ = بدون نهاية)</small></label><input id="ed" type="date">
+</div>
+
+<button id="save">Kaydet / حفظ</button><div id="msg"></div>
+<p class="sub">Kayıttan ~1 dakika sonra sitede görünür · يظهر في الموقع بعد حوالي دقيقة.</p>
+<button class="s" id="out">Çıkış / خروج</button>
+</div></div>
+<script>
+const R='otillion/nolimits-fitness',F='config.json',API='https://api.github.com/repos/'+R+'/contents/'+F;
+const $=i=>document.getElementById(i);let sha=null,tok='';
+try{tok=localStorage.getItem('nl-admin')||''}catch(e){}
+const H=()=>({Authorization:'Bearer '+tok,Accept:'application/vnd.github+json'});
+const say=(t,c)=>{$('msg').textContent=t;$('msg').className=c||''};
+async function load(){
+  const r=await fetch(API+'?ref=main&t='+Date.now(),{headers:H(),cache:'no-store'});
+  if(!r.ok)throw new Error(r.status===401||r.status===403||r.status===404?'Token geçersiz / الرمز غير صحيح':'Hata '+r.status);
+  const j=await r.json();sha=j.sha;
+  const c=JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,'')))));
+  const p=c.prices||{},o=c.offer||{};
+  $('m1').value=p.m1;$('m3').value=p.m3;$('m6').value=p.m6;$('m12').value=p.m12;
+  $('en').checked=!!o.enabled;
+  $('tt').value=o.title_tr||'';$('te').value=o.title_en||'';$('ta').value=o.title_ar||'';
+  $('dt').value=o.details_tr||'';$('de').value=o.details_en||'';$('da').value=o.details_ar||'';
+  $('pr').value=o.price||'';$('op').value=o.old_price||'';$('ed').value=o.end||'';
+}
+async function enter(){
+  try{await load();$('login').classList.add('hide');$('app').classList.remove('hide')}
+  catch(e){$('login').classList.remove('hide');$('app').classList.add('hide');alert(e.message)}
+}
+$('go').onclick=()=>{tok=$('tok').value.trim();if(!tok)return;try{localStorage.setItem('nl-admin',tok)}catch(e){}enter()};
+$('out').onclick=()=>{try{localStorage.removeItem('nl-admin')}catch(e){}location.reload()};
+$('save').onclick=async()=>{
+  const n=i=>Math.max(0,Math.round(+$(i).value)||0);
+  const prices={m1:n('m1'),m3:n('m3'),m6:n('m6'),m12:n('m12')};
+  if(Object.values(prices).some(v=>!v))return say('Tüm fiyatları girin / أدخل كل الأسعار','er');
+  const c={prices,offer:{enabled:$('en').checked,
+    title_tr:$('tt').value.trim(),title_en:$('te').value.trim(),title_ar:$('ta').value.trim(),
+    details_tr:$('dt').value.trim(),details_en:$('de').value.trim(),details_ar:$('da').value.trim(),
+    price:n('pr'),old_price:n('op'),end:$('ed').value}};
+  if(c.offer.enabled&&!c.offer.title_tr)return say('Türkçe başlık gerekli / العنوان بالتركية مطلوب','er');
+  say('Kaydediliyor… / جارٍ الحفظ…');
+  const body={message:'Update prices/offer from admin',branch:'main',sha,
+    content:btoa(unescape(encodeURIComponent(JSON.stringify(c,null,2)+'\n')))};
+  const r=await fetch(API,{method:'PUT',headers:{...H(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok)return say('Kaydedilemedi ('+r.status+') / فشل الحفظ','er');
+  sha=(await r.json()).content.sha;say('✓ Kaydedildi / تم الحفظ','ok');
+};
+if(tok)enter();
+</script></body></html>

@@ -113,6 +113,24 @@ h1,h2,h3,p{margin:0}
 .gc{bottom:20%;inset-inline-start:0;animation:float 6.5s -4s ease-in-out infinite}
 
 /* marquee */
+/* promo */
+.promo{position:relative;overflow:hidden;padding-block:56px;border-block:1px solid rgba(98,209,31,.45);background:linear-gradient(120deg,#16260f,var(--panel) 65%)}
+.promo[hidden]{display:none}
+.promo::after{content:"";position:absolute;inset-inline-end:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(98,209,31,.28),transparent 70%);pointer-events:none}
+.promo-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:center}
+.promo h2{font-size:clamp(40px,6vw,78px);margin-top:14px}
+.promo-d{margin-top:18px;color:var(--fg);font-size:19px;max-width:56ch;white-space:pre-line}
+.promo-end{display:inline-block;margin-top:16px;padding:7px 14px;border:1px solid rgba(98,209,31,.55);color:var(--green-2);font:700 15px var(--display);letter-spacing:.1em;text-transform:uppercase}
+.promo-end[hidden]{display:none}
+.promo-p{direction:ltr;text-align:center}
+.promo-p[hidden]{display:none}
+.promo-old{display:block;color:var(--mut);font:600 28px var(--display);text-decoration:line-through;text-decoration-color:var(--green);text-decoration-thickness:2px}
+.promo-old[hidden]{display:none}
+.promo-new{display:flex;align-items:baseline;justify-content:center;gap:10px;font:italic 800 clamp(80px,12vw,150px)/.95 var(--display);color:var(--green-2);font-variant-numeric:tabular-nums}
+.promo-new small{font-size:.32em;color:var(--green)}
+.promo .btn{margin-top:26px}
+:lang(ar) .promo-end,:lang(ar) .promo-old,:lang(ar) .promo-new{font-family:'Cairo';font-style:normal;letter-spacing:0;text-transform:none;font-weight:900}
+@media (max-width:1020px){.promo-grid{grid-template-columns:1fr;gap:24px}.promo-p{text-align:start}.promo-new{justify-content:flex-start}}
 .band{overflow:hidden;padding-block:26px}
 .marquee{direction:ltr;background:var(--green);color:#071004;transform:rotate(-1.4deg);margin-inline:-3%;overflow:hidden;white-space:nowrap;border-block:3px solid #071004}
 .track{display:inline-flex;animation:mq 34s linear infinite}
@@ -359,6 +377,19 @@ a.v:hover{color:var(--green-2)}
         <div><b>ESTD 2021</b></div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="promo" id="promo" hidden>
+  <div class="wrap promo-grid">
+    <div>
+      <span class="eyebrow" data-i18n="promo_eyebrow"></span>
+      <h2 class="disp" id="promoT"></h2>
+      <p class="promo-d" id="promoD"></p>
+      <span class="promo-end" id="promoE" hidden></span>
+      <div><a class="btn" data-wa="topic_promo" href="#contact" target="_blank" rel="noopener"><span data-i18n="cl_go"></span><svg class="arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="promo-p" id="promoP" hidden><span class="promo-old" id="promoO" hidden></span><div class="promo-new"><span id="promoN"></span><small>TL</small></div></div>
   </div>
 </section>
 
@@ -743,6 +774,7 @@ tr:{
  p2t:'Temiz ve ferah antrenman alanları',p2d:'Hijyenik, geniş ve ferah bir alanda rahatça antrenman yap.',
  p3t:'Deneyimli antrenörler',p3d:'Hedefine uygun yönlendirme ve doğru teknik.',
  p4t:'Güçlü bir topluluk',p4d:'Birlikte katıl, birlikte antrenman yap, daha güçlü ol.',
+ promo_eyebrow:'Özel teklif',promo_end:'Son gün',
  pr_eyebrow:'Üyelik',pr_h:'Üyelik fiyat listesi',pr_sub:'Sana uygun süreyi seç. Süre uzadıkça aylık maliyet düşer.',pr_best:'En avantajlı',topic_offer:'üyelik fiyatları',
  pr_d1:'1 Ay',pr_d3:'3 Ay',pr_d6:'6 Ay',pr_d12:'12 Ay',pr_p1:'Esnek başlangıç',pr_s1:'Başlangıç fiyatı',
  pr_p3:'Aylık ≈ 1.767 TL',pr_p6:'Aylık ≈ 1.550 TL',pr_p12:'Aylık ≈ 1.358 TL',pr_s3:'1.300 TL tasarruf',pr_s6:'3.900 TL tasarruf',pr_s12:'10.100 TL tasarruf',
@@ -780,6 +812,7 @@ en:{
  p2t:'Clean, spacious workout areas',p2d:'Train comfortably in clean, spacious workout areas.',
  p3t:'Experienced trainers',p3d:'Guidance that fits your goal and the right technique.',
  p4t:'A strong community',p4d:'Join together, train together, get stronger.',
+ promo_eyebrow:'Special offer',promo_end:'Ends',
  pr_eyebrow:'Membership',pr_h:'Membership price list',pr_sub:'Pick the term that fits you. The longer the term, the lower the monthly cost.',pr_best:'Best value',topic_offer:'membership prices',
  pr_d1:'1 Month',pr_d3:'3 Months',pr_d6:'6 Months',pr_d12:'12 Months',pr_p1:'Flexible start',pr_s1:'Starting price',
  pr_p3:'Monthly ≈ 1,767 TL',pr_p6:'Monthly ≈ 1,550 TL',pr_p12:'Monthly ≈ 1,358 TL',pr_s3:'Save 1,300 TL',pr_s6:'Save 3,900 TL',pr_s12:'Save 10,100 TL',
@@ -817,6 +850,7 @@ ar:{
  p2t:'مناطق تمرين نظيفة ورحبة',p2d:'تمرّن براحة في مساحة نظيفة وواسعة ومريحة.',
  p3t:'مدربون ذوو خبرة',p3d:'توجيه يناسب هدفك وأسلوب تمرين صحيح.',
  p4t:'مجتمع قوي',p4d:'انضموا معًا، تمرّنوا معًا، وكونوا أقوى.',
+ promo_eyebrow:'عرض خاص',promo_end:'ينتهي',
  pr_eyebrow:'الاشتراك',pr_h:'قائمة أسعار الاشتراك',pr_sub:'اختر المدة المناسبة لك. كلما طالت المدة انخفضت التكلفة الشهرية.',pr_best:'الأفضل قيمة',topic_offer:'أسعار الاشتراك',
  pr_d1:'شهر واحد',pr_d3:'3 أشهر',pr_d6:'6 أشهر',pr_d12:'12 شهرًا',pr_p1:'بداية مرنة',pr_s1:'سعر البداية',
  pr_p3:'شهريًا ≈ ‎1,767 TL‎',pr_p6:'شهريًا ≈ ‎1,550 TL‎',pr_p12:'شهريًا ≈ ‎1,358 TL‎',pr_s3:'وفّر ‎1,300 TL‎',pr_s6:'وفّر ‎3,900 TL‎',pr_s12:'وفّر ‎10,100 TL‎',
@@ -864,6 +898,7 @@ function setLang(l){
   // marquee: duplicate once for a seamless loop
   const tr=$('#track'); $$('.dup',tr).forEach(n=>n.remove());
   [...tr.children].forEach(c=>{const k=c.cloneNode(true);k.classList.add('dup');tr.appendChild(k)});
+  renderPromo();
   refreshLinks();
   try{localStorage.setItem('nl-lang',l)}catch(e){}
 }
@@ -947,6 +982,45 @@ $$('.card').forEach(c=>c.addEventListener('pointermove',e=>{
 let start='tr';
 try{start=localStorage.getItem('nl-lang')||''}catch(e){}
 if(!D[start]){const nav=(navigator.language||'tr').slice(0,2).toLowerCase();start=D[nav]?nav:'tr'}
+// admin-editable config (config.json): prices + optional special offer
+const PR={m1:2200,m3:5300,m6:9300,m12:16300};
+let OFFER=null;
+const PT={tr:['Aylık ≈ {n} TL','{n} TL tasarruf'],en:['Monthly ≈ {n} TL','Save {n} TL'],ar:['شهريًا ≈ \u200E{n} TL\u200E','وفّر \u200E{n} TL\u200E']};
+function applyPrices(){
+  for(const l in D){
+    const f=n=>Math.round(n).toLocaleString(LOC[l]);
+    [[3,'p3','s3'],[6,'p6','s6'],[12,'p12','s12']].forEach(([m,p,s])=>{
+      const tot=PR['m'+m];
+      D[l]['pr_'+p]=PT[l][0].replace('{n}',f(tot/m));
+      D[l]['pr_'+s]=PT[l][1].replace('{n}',f(Math.max(0,PR.m1*m-tot)));
+    });
+  }
+  const vals=[PR.m1,PR.m3,PR.m6,PR.m12];
+  $$('.plan [data-count]').forEach((e,i)=>{e.dataset.count=vals[i]});
+  const hb=$('.gb [data-count]');if(hb)hb.dataset.count=PR.m1;
+}
+function renderPromo(){
+  const s=$('#promo'),o=OFFER;
+  let on=!!(o&&o.enabled);
+  if(on&&o.end){const e=new Date(o.end+'T23:59:59');if(!isNaN(e)&&Date.now()>e)on=false}
+  s.hidden=!on;
+  if(!on)return;
+  const g=k=>o[k+'_'+lang]||o[k+'_tr']||'';
+  $('#promoT').textContent=g('title');
+  $('#promoD').textContent=g('details');
+  D[lang].topic_promo=g('title')||D[lang].topic_all;
+  const n=+o.price,old=+o.old_price;
+  $('#promoP').hidden=!(n>0);
+  if(n>0){$('#promoN').textContent=nf(n);$('#promoO').hidden=!(old>0);if(old>0)$('#promoO').textContent=nf(old)+' TL'}
+  const pe=$('#promoE');pe.hidden=!o.end;
+  if(o.end){const d=new Date(o.end+'T00:00:00');pe.textContent=D[lang].promo_end+': '+(isNaN(d)?o.end:d.toLocaleDateString(LOC[lang],{day:'numeric',month:'long'}))}
+}
 setLang(start);
+fetch('config.json?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(c=>{
+  if(!c)return;
+  if(c.prices)for(const k in PR){const v=+c.prices[k];if(v>0)PR[k]=v}
+  OFFER=c.offer||null;
+  applyPrices();setLang(lang);setTimeout(()=>setLang(lang),1600);
+}).catch(()=>{});
 </script>
 </body></html>

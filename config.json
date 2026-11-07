@@ -1,0 +1,9 @@
+{
+  "prices": { "m1": 2200, "m3": 5300, "m6": 9300, "m12": 16300 },
+  "offer": {
+    "enabled": false,
+    "title_tr": "", "title_en": "", "title_ar": "",
+    "details_tr": "", "details_en": "", "details_ar": "",
+    "price": 0, "old_price": 0, "end": ""
+  }
+}
